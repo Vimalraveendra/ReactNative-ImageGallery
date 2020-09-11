@@ -4,10 +4,17 @@ import {StyleSheet, Image, TouchableOpacity, Dimensions} from 'react-native';
 
 const {width, height} = Dimensions.get('window');
 
-const CardImage = ({item}) => {
+const CardImage = ({item, orientation}) => {
   return (
     <TouchableOpacity style={styles.container}>
-      <Image source={{uri: item.picture.large}} style={styles.cardImage} />
+      <Image
+        source={{uri: item.picture.large}}
+        style={
+          orientation === '' || orientation === 'portrait'
+            ? styles.cardImagePortrait
+            : styles.cardImageLandscape
+        }
+      />
     </TouchableOpacity>
   );
 };
@@ -15,11 +22,15 @@ const CardImage = ({item}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
   },
-  cardImage: {
+  cardImagePortrait: {
     width: width / 4,
     height: width / 4,
+    resizeMode: 'cover',
+  },
+  cardImageLandscape: {
+    width: height / 4,
+    height: height / 4,
     resizeMode: 'cover',
   },
 });
