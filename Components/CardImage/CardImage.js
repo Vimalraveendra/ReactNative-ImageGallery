@@ -1,20 +1,26 @@
 import React from 'react';
 
 import {StyleSheet, Image, TouchableOpacity, Dimensions} from 'react-native';
+import * as Animatable from 'react-native-animatable';
 
 const {width, height} = Dimensions.get('window');
 
-const CardImage = ({item, orientation}) => {
+const CardImage = ({item, orientation, index}) => {
   return (
     <TouchableOpacity style={styles.container}>
-      <Image
-        source={{uri: item.picture.large}}
-        style={
-          orientation === '' || orientation === 'portrait'
-            ? styles.cardImagePortrait
-            : styles.cardImageLandscape
-        }
-      />
+      <Animatable.View
+        animation="zoomIn"
+        delay={index * 100}
+        useNativeDriver={true}>
+        <Image
+          source={{uri: item.picture.large}}
+          style={
+            orientation === '' || orientation === 'portrait'
+              ? styles.cardImagePortrait
+              : styles.cardImageLandscape
+          }
+        />
+      </Animatable.View>
     </TouchableOpacity>
   );
 };
