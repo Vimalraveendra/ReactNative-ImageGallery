@@ -2,6 +2,8 @@ import React from 'react';
 
 import {SafeAreaView, Text, StyleSheet, FlatList} from 'react-native';
 
+import CardImage from './Components/CardImage/CardImage';
+
 class App extends React.Component {
   state = {
     dataList: [],
@@ -11,7 +13,7 @@ class App extends React.Component {
   }
   fetchData = async () => {
     try {
-      const url = 'https://randomuser.me/api/?&nat=gb&results=30';
+      const url = 'https://randomuser.me/api/?&nat=gb&results=40';
       const response = await fetch(url);
       const data = await response.json();
       this.setState({dataList: data.results});
@@ -20,15 +22,15 @@ class App extends React.Component {
     }
   };
 
-  renderItem = {};
   render() {
     return (
       <SafeAreaView style={styles.container}>
         <Text style={styles.title}>Image Gallery</Text>
         <FlatList
+          numColumns={4}
           data={this.state.dataList}
           keyExtractor={(item) => item.login.uuid}
-          renderItem={this.renderItem}
+          renderItem={({item}) => <CardImage item={item} />}
         />
       </SafeAreaView>
     );
@@ -38,13 +40,13 @@ class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     backgroundColor: 'grey',
   },
   title: {
     fontSize: 23,
     fontWeight: '700',
-    marginTop: 10,
+    marginVertical: 10,
+    alignSelf: 'center',
   },
 });
 
