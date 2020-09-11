@@ -49,8 +49,8 @@ class App extends React.Component {
           numColumns={4}
           data={dataList}
           keyExtractor={(item) => item.login.uuid}
-          renderItem={({item}) => (
-            <CardImage item={item} orientation={orientation} />
+          renderItem={({item, index}) => (
+            <CardImage item={item} orientation={orientation} index={index} />
           )}
         />
       </SafeAreaView>
@@ -61,7 +61,6 @@ class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'grey',
   },
   title: {
     fontSize: 23,
